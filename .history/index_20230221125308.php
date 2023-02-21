@@ -19,22 +19,12 @@ if (array_key_exists("submit", $_POST)) {
         // Added single quotes around html tags
         $error = '<p>There were error(s)</p>' . $error;
     } else {
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $query = "SELECT id FROM users WHERE '" . $email . "' LIMIT 1";
 
-        $result = mysqli_query($conn, $query);
-
-        if (mysqli_num_rows($result) > 0) {
-            $error = "Email address is taken";
-        } else {
-            $password = mysqli_real_escape_string($conn, $_POST['password']);
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (email, password) VALUES ('" . $email . "', '" . $password . "')";
-        }
     }
 
 }
 ?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -79,43 +69,54 @@ if (array_key_exists("submit", $_POST)) {
     <!-- Preloader Start-->
 
 
-    <!-- Register -->
-
     <main class="login-body" data-vide-bg="assets/img/login-bg.mp4">
         <!-- Login Admin -->
-        <form class="form-default" action="login-bg.mp4" method="POST">
-            <div id="error">
-                <?php
-                // Check if $_POST variables are set; if not, assign an empty string
-                if (!isset($_POST['email'])) {
-                    $error = "";
-                }
-                if (!isset($_POST['password'])) {
-                    $error = "";
-                }
-                ?>
-            </div>
+        <form class="form-default" method="POST">
+
             <div class="login-form">
+                <div id="error">
+                    <?php
+                    // Check if $_POST variables are set; if not, assign an empty string
+                    if (!isset($_POST['email'])) {
+                        $error = "";
+                    }
+                    if (!isset($_POST['password'])) {
+                        $error = "";
+                    }
+                    ?>
+                </div>
                 <!-- logo-login -->
                 <div class="logo-login">
                     <a href="index.html"><img src="assets/img/logo/loder.png" alt=""></a>
                 </div>
-                <h2>Registration Here</h2>
+                <h2>Login Here</h2>
+
                 <div class="form-input">
-                    <label for="name">Email Address</label>
-                    <input type="email" name="email" placeholder="Email Address">
+                    <label for="name">Email</label>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
+
                 <div class="form-input">
                     <label for="name">Password</label>
-                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="Password" for="password" required>
                 </div>
+
+                <div>
+                    <input type="checkbox" name="remember" value="remember" id="remember">.
+                    <label for="name" style="color: white;">Remember me</label>
+                </div>
+
                 <div class="form-input pt-30">
-                    <input type="submit" name="submit" value="Registration">
+                    <input type="submit" id="submitBtn" class="submitBtn" name="submit" value="login">.
                 </div>
-                <!-- Forget Password -->
-                <a href="index.php" class="registration">login</a>
+
+                <div class="links-login">
+                    <a href="#" class="forget">Forget Password</a>
+                    <a href="register.php" class="registration">Registration</a>
+                </div>
             </div>
         </form>
+
         <!-- /end login form -->
     </main>
 

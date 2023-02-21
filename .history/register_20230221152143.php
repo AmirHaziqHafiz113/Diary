@@ -27,9 +27,7 @@ if (array_key_exists("submit", $_POST)) {
         if (mysqli_num_rows($result) > 0) {
             $error = "Email address is taken";
         } else {
-            $password = mysqli_real_escape_string($conn, $_POST['password']);
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (email, password) VALUES ('" . $email . "', '" . $password . "')";
+            $error = "That email address could not be found.";
         }
     }
 

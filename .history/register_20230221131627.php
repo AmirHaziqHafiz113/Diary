@@ -27,9 +27,7 @@ if (array_key_exists("submit", $_POST)) {
         if (mysqli_num_rows($result) > 0) {
             $error = "Email address is taken";
         } else {
-            $password = mysqli_real_escape_string($conn, $_POST['password']);
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (email, password) VALUES ('" . $email . "', '" . $password . "')";
+            $error = "That email address could not be found.";
         }
     }
 
@@ -84,17 +82,7 @@ if (array_key_exists("submit", $_POST)) {
     <main class="login-body" data-vide-bg="assets/img/login-bg.mp4">
         <!-- Login Admin -->
         <form class="form-default" action="login-bg.mp4" method="POST">
-            <div id="error">
-                <?php
-                // Check if $_POST variables are set; if not, assign an empty string
-                if (!isset($_POST['email'])) {
-                    $error = "";
-                }
-                if (!isset($_POST['password'])) {
-                    $error = "";
-                }
-                ?>
-            </div>
+
             <div class="login-form">
                 <!-- logo-login -->
                 <div class="logo-login">
